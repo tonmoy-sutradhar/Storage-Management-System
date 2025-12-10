@@ -1,4 +1,7 @@
 import express from "express";
+import connectDB from "./config/db.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 let port = 8000;
 
@@ -9,4 +12,5 @@ app.get("/", (req, res) => {
 
 app.listen(port, () => {
   console.log("Hello from server");
+  connectDB();
 });
