@@ -1,6 +1,6 @@
 import express from "express";
-import connectDB from "./config/db.js";
 import dotenv from "dotenv";
+import connectDB from "./config/database.js";
 dotenv.config();
 
 let port = 8000;
