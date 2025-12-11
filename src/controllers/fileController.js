@@ -1,6 +1,7 @@
 import * as fileService from "../services/fileService.js";
 import { body } from "express-validator";
 import cloudinary from "../config/cloudinary.js";
+import path from "path";
 
 // @desc    Upload file
 // @route   POST /api/files/upload
@@ -286,8 +287,11 @@ export const downloadFile = async (req, res, next) => {
     );
 
     // For local storage
+    // if (file.path && !file.url.startsWith("http")) {
+    //   return res.sendFile(file.path, { root: "." });
+    // }
     if (file.path && !file.url.startsWith("http")) {
-      return res.sendFile(file.path, { root: "." });
+      return res.sendFile(path.resolve(file.path));
     }
 
     // For cloud storage (redirect to URL)

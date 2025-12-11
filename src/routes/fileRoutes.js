@@ -1,8 +1,8 @@
 import express from "express";
 import * as fileController from "../controllers/fileController.js";
-import { validate } from "../middleware/validation.js";
+import { validate, validateFileType } from "../middleware/validation.js";
 import { protect, checkStorageLimit } from "../middleware/auth.js";
-import { uploadSingle, validateFileType } from "../middleware/upload.js";
+import { uploadSingle } from "../middleware/upload.js";
 
 const router = express.Router();
 
@@ -19,6 +19,8 @@ router.post(
   fileController.uploadFile
 );
 
+// Public route for shared files
+router.get("/shared/:token", fileController.getSharedFile);
 // Get files
 router.get("/", fileController.getFiles);
 
@@ -29,6 +31,7 @@ router.get("/recent", fileController.getRecentFiles);
 router.get("/favorites", fileController.getFavoriteFiles);
 
 // Get single file
+// router.get("/:id", fileController.getFile);
 router.get("/:id", fileController.getFile);
 
 // Update file
@@ -59,8 +62,5 @@ router.put("/:id/restore", fileController.restoreFile);
 
 // Delete file (move to trash)
 router.delete("/:id", fileController.deleteFile);
-
-// Public route for shared files
-router.get("/shared/:token", fileController.getSharedFile);
 
 export default router;

@@ -7,7 +7,7 @@ import { deleteFromCloudinary } from "../middleware/upload.js";
 
 // Upload file
 export const uploadFile = async (fileData, userId) => {
-  const { name, folderId, description, tags, publicId } = fileData;
+  const { name, folderId, user, description, tags, publicId } = fileData;
 
   // Check folder exists
   let folder = null;
@@ -135,6 +135,25 @@ export const getFileById = async (fileId, userId) => {
 
   return file;
 };
+// fileService.js
+// export const getFileById = async (fileId, userId) => {
+//   console.log("req.user.id:", userId);
+
+//   const file = await File.findById(fileId).populate("folder", "name path");
+
+//   console.log("file.user:", file ? file.user : null);
+
+//   if (!file || (file.user && file.user.toString() !== userId.toString())) {
+//     const error = new Error("File not found");
+//     error.statusCode = 404;
+//     throw error;
+//   }
+
+//   file.views += 1;
+//   await file.save({ validateBeforeSave: false });
+
+//   return file;
+// };
 
 // Update file
 export const updateFile = async (fileId, userId, updateData) => {
